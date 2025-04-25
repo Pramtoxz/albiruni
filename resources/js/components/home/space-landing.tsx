@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react"
 import { useAnimation, useInView } from "framer-motion"
 import { Moon, Rocket } from "lucide-react"
 import { FloatingElements, KindergartenDoodles, ChildrenQuotes } from "@/components/home/kindergarten-elements"
-import { ScrollLottieAnimation } from "@/components/home/lottie-animation"
+import { LottieAnimation, ScrollLottieAnimation } from "@/components/home/lottie-animation"
 import RocketAnimation from '@/assets/home/astro.json'
+import Mengambang from '@/assets/home/mengambang.json'
 
 // Import komponen yang telah dipisahkan
 import { Header } from "@/components/ui/home/header"
@@ -104,12 +105,9 @@ export default function SpaceLanding() {
 
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-32 h-32 opacity-80 z-10" style={{ transform: calculateParallax(0.02) }}>
-        <img
-          src="/placeholder.svg?height=150&width=150"
-          alt="Planet"
-          width={150}
-          height={150}
-          className="animate-float-slow"
+        <LottieAnimation
+          animationData={Mengambang}
+          className="w-full h-full animate-float-slow"
         />
       </div>
       <ScrollLottieAnimation

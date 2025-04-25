@@ -159,7 +159,7 @@ export function ChildrenQuotes() {
               className="inline-block mx-4 px-6 py-3 bg-blue-800/40 backdrop-blur-sm rounded-lg border border-blue-700/50"
             >
               <p className="text-blue-100 italic">"{quote}"</p>
-              <p className="text-yellow-300 text-sm mt-2">- Anak TK Birini</p>
+              <p className="text-yellow-300 text-sm mt-2">- Anak TK Al-Biruni</p>
             </div>
           ))}
         </motion.div>

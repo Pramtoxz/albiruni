@@ -1,7 +1,7 @@
 import React from "react"
 import { motion, AnimationControls } from "framer-motion"
 import { Star, Rocket, Moon, Telescope } from "lucide-react"
-
+import Kepsek from "@/assets/guru/kepala.png"
 interface FacilitiesSectionProps {
   activitiesControls: AnimationControls
 }
@@ -103,18 +103,18 @@ export function FacilitiesSection({ activitiesControls }: FacilitiesSectionProps
           >
             <div className="bg-blue-900/50 backdrop-blur-sm rounded-2xl p-2 border border-blue-700/50 relative overflow-hidden">
               <img
-                src="/placeholder.svg?height=500&width=600"
+                src={Kepsek}
                 alt="Kindergarten space-themed classroom"
                 width={600}
                 height={500}
                 className="rounded-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6">
+              {/* <div className="absolute bottom-6 left-6 right-6">
                 <p className="text-white text-lg font-bold">
-                  "Ruang belajar yang dirancang khusus untuk menginspirasi imajinasi dan kreativitas anak-anak."
+                  "With a heart for education and a vision for excellence, she leads our little learners on a journey of discovery, creativity, and growth. 🌱📚"
                 </p>
-              </div>
+              </div> */}
             </div>
             <div className="absolute -top-6 -right-6 bg-yellow-500 rounded-full p-4 shadow-lg">
               <Rocket className="w-8 h-8 text-blue-900" />
