@@ -1,5 +1,11 @@
 import React from "react"
 import { motion, AnimationControls } from "framer-motion"
+import Satu from "@/assets/kegiatan/1.webp"
+import Dua from "@/assets/kegiatan/2.webp"
+import Tiga from "@/assets/kegiatan/3.webp"
+import Empat from "@/assets/kegiatan/4.webp"
+import Lima from "@/assets/kegiatan/5.webp"
+import Enam from "@/assets/kegiatan/6.webp"
 
 interface ActivitiesSectionProps {
   activitiesRef: React.RefObject<HTMLElement | null>
@@ -68,37 +74,37 @@ export function ActivitiesSection({ activitiesRef, activitiesControls }: Activit
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+            image={Satu}
             title="Astronaut Playtime"
             date="Setiap Senin"
             description="Anak-anak bermain peran sebagai astronaut dengan kostum dan peralatan yang menyerupai penjelajah luar angkasa sungguhan."
           />
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+           image={Dua}
             title="Seni & Kerajinan Kosmik"
             date="Setiap Selasa"
             description="Membuat kerajinan tangan bertema luar angkasa seperti roket, planet, dan bintang dengan berbagai bahan yang aman untuk anak-anak."
           />
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+           image={Tiga}
             title="Cerita Petualangan Luar Angkasa"
             date="Setiap Rabu"
             description="Waktu bercerita interaktif dengan buku-buku bergambar tentang luar angkasa dan petualangan kosmik yang menakjubkan."
           />
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+           image={Empat}
             title="Musik & Gerakan Galaksi"
             date="Setiap Kamis"
             description="Bernyanyi dan menari dengan lagu-lagu bertema luar angkasa untuk mengembangkan keterampilan motorik dan ekspresi diri."
           />
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+           image={Lima}
             title="Bermain & Belajar Matematika"
             date="Setiap Jumat"
             description="Belajar konsep matematika dasar melalui permainan menghitung bintang, mengelompokkan planet, dan aktivitas menyenangkan lainnya."
           />
           <ActivityCard
-            image="/placeholder.svg?height=300&width=400"
+           image={Enam}
             title="Eksplorasi Alam Semesta"
             date="Bulanan"
             description="Kunjungan ke planetarium mini kami di mana anak-anak dapat melihat bintang-bintang dan belajar tentang konstelasi dengan cara yang menyenangkan."

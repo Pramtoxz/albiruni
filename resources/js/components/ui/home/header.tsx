@@ -1,11 +1,21 @@
-import React from "react"
-import { Link } from "@inertiajs/react"
-import { Telescope, Star } from "lucide-react"
+import React, { useState } from "react"
+import { Link, usePage } from "@inertiajs/react"
+import { Telescope, Star, User, LogOut, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { type SharedData } from '@/types'
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
 
 export function Header() {
+  const { auth } = usePage<SharedData>().props
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
-    <header className="relative z-20 px-6 py-4">
+    <header className="relative z-50 px-6 py-4 bg-blue-900 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2">
           <div className="relative">
@@ -38,29 +48,127 @@ export function Header() {
 
         {/* Mobile menu button */}
         <div className="md:hidden">
-          <Button variant="ghost" size="icon" className="text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </Button>
         </div>
 
-        <Button className="hidden md:flex bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold">
-          Enroll Now
-        </Button>
+        {auth.user ? (
+          <div className="hidden md:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold px-5 py-1.5 rounded-sm flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span>Profil</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href={route('dashboard')} className="cursor-pointer w-full">
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={route('profile.edit')} className="cursor-pointer w-full">
+                    Pengaturan
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link 
+                    href={route('logout')} 
+                    method="post" 
+                    as="button" 
+                    className="cursor-pointer w-full flex items-center text-red-600 gap-2"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span>Logout</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <Link
+            href={route('login')}
+            className="hidden md:flex bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold px-5 py-1.5 rounded-sm"
+          >
+            Login
+          </Link>
+        )}
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 top-[72px] z-40 bg-blue-900 md:hidden">
+          <div className="container p-6 h-full flex flex-col overflow-y-auto">
+            <nav className="flex flex-col gap-4 pt-6 pb-8 border-b border-blue-800">
+              <MobileNavLink href="#home" onClick={() => setMobileMenuOpen(false)}>Home</MobileNavLink>
+              <MobileNavLink href="#features" onClick={() => setMobileMenuOpen(false)}>Features</MobileNavLink>
+              <MobileNavLink href="#activities" onClick={() => setMobileMenuOpen(false)}>Kegiatan</MobileNavLink>
+              <MobileNavLink href="#facilities" onClick={() => setMobileMenuOpen(false)}>Fasilitas</MobileNavLink>
+              <MobileNavLink href="#teachers" onClick={() => setMobileMenuOpen(false)}>Guru</MobileNavLink>
+              <MobileNavLink href="#about" onClick={() => setMobileMenuOpen(false)}>About</MobileNavLink>
+              <MobileNavLink href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</MobileNavLink>
+            </nav>
+            
+            <div className="pt-6">
+              {auth.user ? (
+                <div className="flex flex-col gap-4">
+                  <Link 
+                    href={route('dashboard')}
+                    className="flex items-center gap-2 text-blue-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="bg-blue-800 p-2 rounded-full">
+                      <User className="h-5 w-5" />
+                    </span>
+                    Dashboard
+                  </Link>
+                  <Link 
+                    href={route('profile.edit')}
+                    className="flex items-center gap-2 text-blue-200 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="bg-blue-800 p-2 rounded-full">
+                      <User className="h-5 w-5" />
+                    </span>
+                    Pengaturan Profil
+                  </Link>
+                  <Link 
+                    href={route('logout')} 
+                    method="post" 
+                    as="button"
+                    className="flex items-center gap-2 text-red-400 font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="bg-red-900/50 p-2 rounded-full">
+                      <LogOut className="h-5 w-5" />
+                    </span>
+                    Keluar
+                  </Link>
+                </div>
+              ) : (
+                <Link
+                  href={route('login')}
+                  className="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold px-5 py-3 rounded-md w-full"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
@@ -75,6 +183,24 @@ function NavLink({ href, children }: NavLinkProps) {
     <Link href={href} className="text-blue-200 hover:text-yellow-300 transition-colors relative group">
       {children}
       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 transition-all group-hover:w-full"></span>
+    </Link>
+  )
+}
+
+interface MobileNavLinkProps {
+  href: string
+  children: React.ReactNode
+  onClick?: () => void
+}
+
+function MobileNavLink({ href, children, onClick }: MobileNavLinkProps) {
+  return (
+    <Link 
+      href={href} 
+      className="text-white hover:text-yellow-300 transition-colors text-xl font-medium py-2"
+      onClick={onClick}
+    >
+      {children}
     </Link>
   )
 } 
